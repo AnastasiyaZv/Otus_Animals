@@ -1,4 +1,10 @@
 package Animals.pets;
 
-public class Cat {
+import Animals.Animal;
+
+public class Cat extends Animal {
+    @Override
+    public void say(){
+        System.out.println("Мяу");
+    }
 }
