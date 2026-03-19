@@ -96,10 +96,10 @@ public class AnimalApp {
         do {
             System.out.println("Введите возраст животного в годах: ");
             animalAgeInput = scanner.next();
-            if (isNotNumber(animalAgeInput)){
+            if (NumberUtils.isNotNumber(animalAgeInput)){
                 System.out.println("Возраст животного должен быть указан числом!");
             }
-        } while (isNotNumber(animalAgeInput));
+        } while (NumberUtils.isNotNumber(animalAgeInput));
         return Integer.parseInt(animalAgeInput);
     }
 
@@ -109,20 +109,20 @@ public class AnimalApp {
         do {
             System.out.println("Введите вес животного в кг: ");
             animalWeightInput = scanner.next();
-            if (isNotNumber(animalWeightInput)){
+            if (NumberUtils.isNotNumber(animalWeightInput)){
                 System.out.println("Вес животного должен быть указан числом!");
             }
-        } while (isNotNumber(animalWeightInput));
+        } while (NumberUtils.isNotNumber(animalWeightInput));
         return Integer.parseInt(animalWeightInput);
     }
 
     //проверка введенного пользователем значения на число
-    private static boolean isNotNumber(String value) {
+    /*private static boolean isNotNumber(String value) {
         if (value == null) {
             return true;
         }
         return !value.matches("\\d+");
-    }
+    }*/
 
     //запрашиваем у пользователя цвет животного
     private static Color getColor (Scanner scanner){
