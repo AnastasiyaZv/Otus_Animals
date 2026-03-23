@@ -4,7 +4,6 @@ public abstract class Animal {
     private String name;
     private int age;
     private int weight;
-    //private String color;
     private Color color;
 
     public String getName() {

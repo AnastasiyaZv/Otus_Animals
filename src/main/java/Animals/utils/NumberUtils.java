@@ -8,5 +8,4 @@ public class NumberUtils {
         }
         return !value.matches("\\d+");
     }
-
 }
