@@ -1,19 +1,20 @@
-package Animals;
+package data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Command {
-    ADD,
-    LIST,
-    EXIT;
+public enum AnimalType {
 
-    //список команд в строком виде для удобства поиска
-    public static final List<String> VALUES = collectValues();
+    CAT,
+    DOG,
+    DUCK;
+
+    //список животных в строковом виде для удобства поиска
+    public static final List<String> VALUES= collectValues();
 
     private static List<String> collectValues(){
         List<String> result = new ArrayList<>();
-        for (Command type : Command.values()){
+        for (AnimalType type : AnimalType.values()){
             result.add(type.name());
         }
         return result;
@@ -21,19 +22,20 @@ public enum Command {
 
     //проверяем пользовательский ввод одной из команд с учетом регистра toUpperCase()
     //и обрезания пробелов trim().
-    public static boolean doesNotContain(String value){
+
+    public static boolean doesNotAnimalType(String value){
         if (value == null){
             return true;
         }
         return !VALUES.contains(value.toUpperCase().trim());
     }
 
-    // возвращаем строковое представление команды с учетом регистра toUpperCase()
+    // возвращаем строковое представление типа животного с учетом регистра toUpperCase()
     //и обрезания пробелов trim()
-    public static Command fromString(String value){
+    public static AnimalType fromStringAnimalType(String value){
         if (value == null){
-            return null; //либо вернуть Exception
+            return null;
         }
-        return Command.valueOf(value.toUpperCase().trim());
+        return AnimalType.valueOf(value.toUpperCase().trim());
     }
 }

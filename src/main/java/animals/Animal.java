@@ -1,4 +1,6 @@
-package Animals;
+package animals;
+
+import data.Color;
 
 public abstract class Animal {
     private String name;

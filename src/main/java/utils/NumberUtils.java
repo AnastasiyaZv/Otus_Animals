@@ -1,4 +1,4 @@
-package Animals.utils;
+package utils;
 
 public class NumberUtils {
     //проверка введенного пользователем значения на число

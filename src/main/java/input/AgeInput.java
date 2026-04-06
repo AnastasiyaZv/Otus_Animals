@@ -1,16 +1,19 @@
-package Animals.input;
+package input;
+
+import utils.NumberUtils;
 
 import java.util.Scanner;
 
 public class AgeInput {
     //запрашиваем у пользователя возраст животного
-    public static int getAge(Scanner scanner){
+    public int getAge(Scanner scanner){
         String animalAgeInput;
         int age = 0;
+
         do {
             System.out.println("Введите возраст животного в годах: ");
             animalAgeInput = scanner.next();
-            if (Animals.utils.NumberUtils.isNotNumber(animalAgeInput)){
+            if (NumberUtils.isNotNumber(animalAgeInput)){
                 System.out.println("Возраст животного должен быть указан числом!");
             } else {
                 age = Integer.parseInt(animalAgeInput);
@@ -18,7 +21,7 @@ public class AgeInput {
                     System.out.println("Возраст животного должен быть больше 0!");
                 }
             }
-        } while (Animals.utils.NumberUtils.isNotNumber(animalAgeInput) || age == 0);
+        } while (NumberUtils.isNotNumber(animalAgeInput) || age == 0);
         return Integer.parseInt(animalAgeInput);
     }
 }

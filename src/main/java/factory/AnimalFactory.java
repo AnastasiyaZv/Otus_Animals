@@ -1,10 +1,10 @@
-package Animals.factory;
+package factory;
 
-import Animals.Animal;
-import Animals.AnimalType;
-import Animals.birds.Duck;
-import Animals.pets.Cat;
-import Animals.pets.Dog;
+import animals.Animal;
+import data.AnimalType;
+import animals.birds.Duck;
+import animals.pets.Cat;
+import animals.pets.Dog;
 
 
 //создаем животное

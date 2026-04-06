@@ -1,7 +1,8 @@
-import Animals.Animal;
-import Animals.AnimalType;
-import Animals.Command;
-import Animals.factory.AnimalFactory;
+import animals.Animal;
+import data.AnimalType;
+import data.Command;
+import factory.AnimalFactory;
+import input.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +10,22 @@ import java.util.Scanner;
 
 
 public class AnimalApp {
-    public static void main(String[] args) {
-        List<Animal> animals = new ArrayList<>();
-        AnimalFactory factory = new AnimalFactory();
 
+    private static NameInput nameInput = new NameInput();
+    private static WeightInput weightInput = new WeightInput();
+    private static AgeInput ageInput = new AgeInput();
+    private static ColorInput colorInput = new ColorInput();
+
+    private static List<Animal> animals = new ArrayList<>();
+    private static AnimalFactory factory = new AnimalFactory();
+
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Command currentCommand = null;
 
         do{
             //запрашиваем команду
-           currentCommand = Animals.input.CommandInput.getCommand(scanner);
+           currentCommand = CommandInput.getCommand(scanner);
 
            if (currentCommand == Command.LIST){
                if (animals.isEmpty()){
@@ -30,15 +37,15 @@ public class AnimalApp {
            } else if (currentCommand == Command.ADD){
 
                //запрашиваем тип животного
-               AnimalType animalType = Animals.input.AnimalTypeInput.getAnimalType(scanner);
+               AnimalType animalType = AnimalTypeInput.getAnimalType(scanner);
                //создаем животное
                Animal animal = factory.create(animalType);
 
                //запрашиваем параметры животного
-               animal.setName(Animals.input.NameInput.getName(scanner));
-               animal.setAge(Animals.input.AgeInput.getAge(scanner));
-               animal.setWeight(Animals.input.WeightInput.getWeight(scanner));
-               animal.setColor(Animals.input.ColorInput.getColor(scanner));
+               animal.setName(nameInput.getName(scanner));
+               animal.setAge(ageInput.getAge(scanner));
+               animal.setWeight(weightInput.getWeight(scanner));
+               animal.setColor(colorInput.getColor(scanner));
 
                //добавляем животное в список
                animals.add(animal);

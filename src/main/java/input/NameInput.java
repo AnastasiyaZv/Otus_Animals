@@ -1,10 +1,10 @@
-package Animals.input;
+package input;
 
 import java.util.Scanner;
 
 public class NameInput {
     //запрашиваем у пользователя имя животного
-    public static String getName(Scanner scanner){
+    public String getName(Scanner scanner){
         String animalNameInput = null;
         do {
             System.out.println("Введите имя животного: ");

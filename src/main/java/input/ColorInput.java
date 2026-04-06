@@ -1,12 +1,12 @@
-package Animals.input;
+package input;
 
-import Animals.Color;
+import data.Color;
 
 import java.util.Scanner;
 
 public class ColorInput {
     //запрашиваем у пользователя цвет животного
-    public static Color getColor (Scanner scanner){
+    public Color getColor (Scanner scanner){
         String animalColorInput = null;
         while (Color.doesNotColor(animalColorInput)) {
             if (animalColorInput != null) {
