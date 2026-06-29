@@ -3,6 +3,8 @@ package input.validators;
 import input.MessageData;
 import utils.NumberUtils;
 
+import java.util.Scanner;
+
 public class NumberInput extends AbsInput {
 
     private final MessageData messageData;

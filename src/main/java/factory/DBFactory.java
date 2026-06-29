@@ -6,7 +6,6 @@ import exceptions.DBConnectException;
 
 import java.sql.SQLException;
 
-// переключение между БД: MySQL, PostgreSQL
 public class DBFactory {
     private final String dbType = System.getenv("db_type");
 
@@ -18,5 +17,4 @@ public class DBFactory {
         }
         throw new DBConnectException(dbType);
     }
-
 }

@@ -9,4 +9,5 @@ public class AnimalTable extends AbsTable {
         this.createTable("name VARCHAR(50) NOT NULL",
                 "age VARCHAR(2) NOT NULL");
     }
+
 }

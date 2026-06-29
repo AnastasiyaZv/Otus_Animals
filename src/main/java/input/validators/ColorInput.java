@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ColorInput extends AbsInput {
 
     //запрашиваем у пользователя цвет животного
-    public Color getColor(Scanner scanner) {
+    public Color getColor() {
         String animalColorInput = null;
 
         while (Color.doesNotColor(animalColorInput)) {

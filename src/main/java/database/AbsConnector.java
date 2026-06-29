@@ -2,9 +2,10 @@ package database;
 
 import java.sql.*;
 
-public class AbsConnector implements IDBConnector {
+public abstract class AbsConnector implements IDBConnector {
     private static Statement statement = null;
     private static Connection connection = null;
+
     private final String jdbcUrl = System.getProperty("jdbc");
     private final String username = System.getProperty("username");
     private final String password = System.getProperty("password");

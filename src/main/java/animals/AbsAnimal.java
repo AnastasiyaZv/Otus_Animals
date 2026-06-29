@@ -65,7 +65,7 @@ public abstract class AbsAnimal {
 
     @Override
     public String toString() {
-        return String.format("Привет! Меня зовут %s, мне %d %s, я вешу - %d кг, мой цвет - %s",
+        return String.format("Привет! Меня зовут %s, мне %d %s, мой вес - %d кг, мой цвет - %s",
                 name, age, getYearWord(age), weight, color.getValue());
     }
 

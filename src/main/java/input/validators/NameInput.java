@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class NameInput extends AbsInput {
 
     //запрашиваем у пользователя имя животного
-    public String getName(Scanner scanner) {
+    public String getName() {
         String animalNameInput = null;
         do {
             System.out.println("Введите имя животного: ");

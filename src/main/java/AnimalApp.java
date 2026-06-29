@@ -4,7 +4,8 @@ import data.Color;
 import data.Command;
 import factory.AnimalFactory;
 import input.*;
-import input.validators.NumberInput;
+import input.validators.*;
+import tables.AnimalTable;
 import tools.PrintLists;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 
 
 public class AnimalApp {
+
     public static void main(String[] args) {
 
         NameInput nameInput = new NameInput();
@@ -21,7 +23,7 @@ public class AnimalApp {
 
         do {
             //запрашиваем команду
-            Command currentCommand = CommandInput.getCommand();
+            Command currentCommand = new CommandInput().getCommand();
 
             if (currentCommand == Command.EXIT) {
                 System.exit(0);
@@ -33,7 +35,7 @@ public class AnimalApp {
             }
 
             //запрашиваем тип животного
-            AnimalType animalType = AnimalTypeInput.getAnimalType();
+            AnimalType animalType = new AnimalTypeInput().getAnimalType();
 
             //запрашиваем параметры животного
             String name = nameInput.getName();
