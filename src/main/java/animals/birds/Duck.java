@@ -1,8 +1,8 @@
 package animals.birds;
 
-import animals.Animal;
+import animals.AbsAnimal;
 
-public class Duck extends Animal implements Flying {
+public class Duck extends AbsAnimal implements Flying {
     @Override
     public void fly(){
         System.out.println("Я лечу");

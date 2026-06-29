@@ -1,6 +1,6 @@
 package factory;
 
-import animals.Animal;
+import animals.AbsAnimal;
 import data.AnimalType;
 import animals.birds.Duck;
 import animals.pets.Cat;
@@ -9,7 +9,7 @@ import animals.pets.Dog;
 
 //создаем животное
 public class AnimalFactory {
-    public Animal create(AnimalType type){
+    public AbsAnimal create(AnimalType type){
         if (type == AnimalType.CAT){
             return new Cat();
         }

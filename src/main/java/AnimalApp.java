@@ -1,4 +1,4 @@
-import animals.Animal;
+import animals.AbsAnimal;
 import data.AnimalType;
 import data.Command;
 import factory.AnimalFactory;
@@ -16,7 +16,7 @@ public class AnimalApp {
     private static AgeInput ageInput = new AgeInput();
     private static ColorInput colorInput = new ColorInput();
 
-    private static List<Animal> animals = new ArrayList<>();
+    private static List<AbsAnimal> animals = new ArrayList<>();
     private static AnimalFactory factory = new AnimalFactory();
 
     public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class AnimalApp {
                if (animals.isEmpty()){
                    System.out.println("Список пуст");
                }
-               for (Animal animal : animals){
+               for (AbsAnimal animal : animals){
                    System.out.println(animal);
                }
            } else if (currentCommand == Command.ADD){
@@ -39,7 +39,7 @@ public class AnimalApp {
                //запрашиваем тип животного
                AnimalType animalType = AnimalTypeInput.getAnimalType(scanner);
                //создаем животное
-               Animal animal = factory.create(animalType);
+               AbsAnimal animal = factory.create(animalType);
 
                //запрашиваем параметры животного
                animal.setName(nameInput.getName(scanner));

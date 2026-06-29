@@ -2,11 +2,18 @@ package animals;
 
 import data.Color;
 
-public abstract class Animal {
+public abstract class AbsAnimal {
     private String name;
     private int age;
     private int weight;
     private Color color;
+
+    public AbsAnimal (int age, int weight, String name, Color color){
+        this.age = age;
+        this.weight = weight;
+        this.name = name;
+        this.color = color;
+    }
 
     public String getName() {
         return name;
