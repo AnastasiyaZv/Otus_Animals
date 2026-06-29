@@ -10,11 +10,11 @@ public enum AnimalType {
     DUCK;
 
     //список животных в строковом виде для удобства поиска
-    public static final List<String> VALUES= collectValues();
+    public static final List<String> VALUES = collectValues();
 
-    private static List<String> collectValues(){
+    private static List<String> collectValues() {
         List<String> result = new ArrayList<>();
-        for (AnimalType type : AnimalType.values()){
+        for (AnimalType type : AnimalType.values()) {
             result.add(type.name());
         }
         return result;
@@ -23,8 +23,8 @@ public enum AnimalType {
     //проверяем пользовательский ввод одной из команд с учетом регистра toUpperCase()
     //и обрезания пробелов trim().
 
-    public static boolean doesNotAnimalType(String value){
-        if (value == null){
+    public static boolean doesNotAnimalType(String value) {
+        if (value == null) {
             return true;
         }
         return !VALUES.contains(value.toUpperCase().trim());
@@ -32,8 +32,8 @@ public enum AnimalType {
 
     // возвращаем строковое представление типа животного с учетом регистра toUpperCase()
     //и обрезания пробелов trim()
-    public static AnimalType fromStringAnimalType(String value){
-        if (value == null){
+    public static AnimalType fromStringAnimalType(String value) {
+        if (value == null) {
             return null;
         }
         return AnimalType.valueOf(value.toUpperCase().trim());

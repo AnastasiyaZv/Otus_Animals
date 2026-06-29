@@ -10,20 +10,16 @@ public enum Color {
     RED("рыжий"),
     WHITE("белый");
 
-    private final String value;
     public static final List<String> VALUES = collectValues();
+    private final String value;
 
     Color(String value) {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public  static List<String> collectValues(){
+    public static List<String> collectValues() {
         List<String> result = new ArrayList<>();
-        for (Color type : Color.values()){
+        for (Color type : Color.values()) {
             result.add(type.name());
         }
         return result;
@@ -31,8 +27,8 @@ public enum Color {
 
     //проверяем пользовательский ввод одной из команд с учетом регистра toUpperCase()
     //и обрезания пробелов trim().
-    public static boolean doesNotColor(String value){
-        if (value == null){
+    public static boolean doesNotColor(String value) {
+        if (value == null) {
             return true;
         }
         return !VALUES.contains(value.toUpperCase().trim());
@@ -40,10 +36,14 @@ public enum Color {
 
     // возвращаем строковое представление команды с учетом регистра toUpperCase()
     //и обрезания пробелов trim()
-    public static Color fromString(String value){
-        if (value == null){
+    public static Color fromString(String value) {
+        if (value == null) {
             return null;
         }
         return Color.valueOf(value.toUpperCase().trim());
+    }
+
+    public String getValue() {
+        return value;
     }
 }

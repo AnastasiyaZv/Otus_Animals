@@ -8,7 +8,7 @@ public abstract class AbsAnimal {
     private int weight;
     private Color color;
 
-    public AbsAnimal (int age, int weight, String name, Color color){
+    public AbsAnimal(int age, int weight, String name, Color color) {
         this.age = age;
         this.weight = weight;
         this.name = name;
@@ -64,21 +64,21 @@ public abstract class AbsAnimal {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("Привет! Меня зовут %s, мне %d %s, я вешу - %d кг, мой цвет - %s",
                 name, age, getYearWord(age), weight, color.getValue());
     }
 
-    private String getYearWord(int age){
-        int lastNum = age%10;
-        int lastTwoNum = age%100;
-        if (lastTwoNum>=11 && lastTwoNum<=13){
+    private String getYearWord(int age) {
+        int lastNum = age % 10;
+        int lastTwoNum = age % 100;
+        if (lastTwoNum >= 11 && lastTwoNum <= 13) {
             return "лет";
         }
         if (lastNum == 1) {
             return "год";
         }
-        if (lastNum>=2 && lastNum<=4) {
+        if (lastNum >= 2 && lastNum <= 4) {
             return "года";
         }
         return "лет";

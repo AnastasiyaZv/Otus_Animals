@@ -1,8 +1,11 @@
 import animals.AbsAnimal;
 import data.AnimalType;
+import data.Color;
 import data.Command;
 import factory.AnimalFactory;
 import input.*;
+import input.validators.NumberInput;
+import tools.PrintLists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,48 +13,54 @@ import java.util.Scanner;
 
 
 public class AnimalApp {
-
-    private static NameInput nameInput = new NameInput();
-    private static WeightInput weightInput = new WeightInput();
-    private static AgeInput ageInput = new AgeInput();
-    private static ColorInput colorInput = new ColorInput();
-
-    private static List<AbsAnimal> animals = new ArrayList<>();
-    private static AnimalFactory factory = new AnimalFactory();
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Command currentCommand = null;
 
-        do{
+        NameInput nameInput = new NameInput();
+        ColorInput colorInput = new ColorInput();
+        List<AbsAnimal> animals = new ArrayList<>();
+
+        do {
             //запрашиваем команду
-           currentCommand = CommandInput.getCommand(scanner);
+            Command currentCommand = CommandInput.getCommand();
 
-           if (currentCommand == Command.LIST){
-               if (animals.isEmpty()){
-                   System.out.println("Список пуст");
-               }
-               for (AbsAnimal animal : animals){
-                   System.out.println(animal);
-               }
-           } else if (currentCommand == Command.ADD){
+            if (currentCommand == Command.EXIT) {
+                System.exit(0);
+            }
 
-               //запрашиваем тип животного
-               AnimalType animalType = AnimalTypeInput.getAnimalType(scanner);
-               //создаем животное
-               AbsAnimal animal = factory.create(animalType);
+            if (currentCommand == Command.LIST) {
+                new PrintLists<AbsAnimal>().printList(animals);
+                continue;
+            }
 
-               //запрашиваем параметры животного
-               animal.setName(nameInput.getName(scanner));
-               animal.setAge(ageInput.getAge(scanner));
-               animal.setWeight(weightInput.getWeight(scanner));
-               animal.setColor(colorInput.getColor(scanner));
+            //запрашиваем тип животного
+            AnimalType animalType = AnimalTypeInput.getAnimalType();
 
-               //добавляем животное в список
-               animals.add(animal);
+            //запрашиваем параметры животного
+            String name = nameInput.getName();
 
-               animal.say();
-           }
-        } while (currentCommand != Command.EXIT);
+            MessageData ageMessageData = new MessageData(
+                    "Введите возраст животного в годах: ",
+                    "Возраст животного должен быть указан числом!",
+                    "Возраст животного должен быть больше 0!"
+            );
+            NumberInput ageNumberInput = new NumberInput(ageMessageData);
+            int age = ageNumberInput.parseStrToNumber();
+
+            MessageData weightMessageData = new MessageData(
+                    "Введите вес животного в кг: ",
+                    "Вес животного должен быть указан числом!",
+                    "Вес животного должен быть больше 0!"
+            );
+            NumberInput weightNumberInput = new NumberInput(weightMessageData);
+            int weight = weightNumberInput.parseStrToNumber();
+
+            Color color = colorInput.getColor();
+
+            AbsAnimal animal = new AnimalFactory(age, weight, name, color).create(animalType);
+            animals.add(animal);
+            animal.say();
+
+        } while (true);
+        //TODO PostgresqlConnector().close - добавить
     }
 }

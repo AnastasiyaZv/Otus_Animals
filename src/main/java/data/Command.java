@@ -11,9 +11,9 @@ public enum Command {
     //список команд в строком виде для удобства поиска
     public static final List<String> VALUES = collectValues();
 
-    private static List<String> collectValues(){
+    private static List<String> collectValues() {
         List<String> result = new ArrayList<>();
-        for (Command type : Command.values()){
+        for (Command type : Command.values()) {
             result.add(type.name());
         }
         return result;
@@ -21,8 +21,8 @@ public enum Command {
 
     //проверяем пользовательский ввод одной из команд с учетом регистра toUpperCase()
     //и обрезания пробелов trim().
-    public static boolean doesNotContain(String value){
-        if (value == null){
+    public static boolean doesNotContain(String value) {
+        if (value == null) {
             return true;
         }
         return !VALUES.contains(value.toUpperCase().trim());
@@ -30,8 +30,8 @@ public enum Command {
 
     // возвращаем строковое представление команды с учетом регистра toUpperCase()
     //и обрезания пробелов trim()
-    public static Command fromString(String value){
-        if (value == null){
+    public static Command fromString(String value) {
+        if (value == null) {
             return null; //либо вернуть Exception
         }
         return Command.valueOf(value.toUpperCase().trim());
