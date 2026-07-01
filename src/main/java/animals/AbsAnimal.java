@@ -1,5 +1,6 @@
 package animals;
 
+import data.AnimalType;
 import data.Color;
 
 public abstract class AbsAnimal {
@@ -7,12 +8,14 @@ public abstract class AbsAnimal {
     private int age;
     private int weight;
     private Color color;
+    private AnimalType type;
 
-    public AbsAnimal(int age, int weight, String name, Color color) {
+    public AbsAnimal(int age, int weight, String name, Color color, AnimalType type) {
         this.age = age;
         this.weight = weight;
         this.name = name;
         this.color = color;
+        this.type = type;
     }
 
     public String getName() {
@@ -45,6 +48,14 @@ public abstract class AbsAnimal {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public AnimalType getType() {
+        return type;
+    }
+
+    public void setType(AnimalType type) {
+        this.type = type;
     }
 
     public void say() {

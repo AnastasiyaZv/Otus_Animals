@@ -1,12 +1,13 @@
 package animals.birds;
 
 import animals.AbsAnimal;
+import data.AnimalType;
 import data.Color;
 
 public class Duck extends AbsAnimal implements Flying {
 
-    public Duck(int age, int weight, String name, Color color) {
-        super(age, weight, name, color);
+    public Duck(int age, int weight, String name, Color color, AnimalType type) {
+        super(age, weight, name, color, type);
     }
 
     @Override

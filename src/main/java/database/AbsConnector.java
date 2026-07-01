@@ -6,16 +6,15 @@ public abstract class AbsConnector implements IDBConnector {
     private static Statement statement = null;
     private static Connection connection = null;
 
-    private final String jdbcUrl = System.getProperty("jdbc");
-    private final String username = System.getProperty("username");
-    private final String password = System.getProperty("password");
+    private final String jdbcUrl = System.getenv("jdbc");
+    private final String username = System.getenv("username");
+    private final String password = System.getenv("password");
 
-    //открываем коннект с БД
     public AbsConnector() throws SQLException {
-        if (connection != null) {
+        if (connection == null) {
             connection = DriverManager.getConnection(jdbcUrl, username, password);
         }
-        if (statement != null) {
+        if (statement == null) {
             statement = connection.createStatement();
         }
     }

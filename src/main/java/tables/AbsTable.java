@@ -1,7 +1,9 @@
 package tables;
 
+import animals.AbsAnimal;
 import database.IDBConnector;
 import factory.DBFactory;
+import tools.PrintLists;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,8 +29,9 @@ public abstract class AbsTable {
     }
 
     public void createTable(String...columns) throws SQLException{
-        String sqlRequest = String.format("CREATE TABLE %s IF NOT EXIST (%s)", tableName,
+        String sqlRequest = String.format("CREATE TABLE IF NOT EXISTS %s (%s)", tableName,
                 String.join(",", columns));
+        System.out.println(sqlRequest);
         this.dbConnector.execute(sqlRequest);
     }
 
@@ -39,10 +42,11 @@ public abstract class AbsTable {
             sqlColumns = String.join(",",columns);
         }
 
-        String sqlRequest = String.format("SELECT %s FROM %s WHERE ", sqlColumns,tableName);
+        String sqlRequest = String.format("SELECT %s FROM %s", sqlColumns,tableName);
         if (!predicates.isEmpty()){
-            sqlRequest += String.format("WHERE %s", predicates);
+            sqlRequest += String.format(" WHERE %s", predicates);
         }
+        System.out.println(sqlRequest);
 
         ResultSet resultSet = this.dbConnector.executeWithData(sqlRequest);
         List<Map<String,String>> result = new ArrayList<>();
@@ -57,4 +61,20 @@ public abstract class AbsTable {
         return result;
     }
 
+    public void addAnimal(AbsAnimal animal) throws SQLException{
+        String sqlRequest = String.format("INSERT INTO %s (name,age,weight,color, type) VALUES ('%s',%d,%d,'%s','%s')",
+                tableName, animal.getName(),animal.getAge(), animal.getWeight(), animal.getColor(), animal.getType());
+        System.out.println(sqlRequest);
+        this.dbConnector.execute(sqlRequest);
+
+        String predicates = String.format("name = '%s' and type='%s'", animal.getName(), animal.getType());
+        List<Map<String,String>> result = listDataFromTable(predicates,"id");
+
+        if (!result.isEmpty()){
+            System.out.println("Запись в БД создана");
+            new PrintLists<>().printDataFromDB(result);
+        } else {
+            System.out.println("Запись в БД не создана");
+        }
+    }
 }

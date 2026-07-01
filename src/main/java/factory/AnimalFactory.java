@@ -7,8 +7,6 @@ import animals.pets.Dog;
 import data.AnimalType;
 import data.Color;
 
-
-//создаем животное
 public class AnimalFactory {
 
     private final int age;
@@ -25,13 +23,13 @@ public class AnimalFactory {
 
     public AbsAnimal create(AnimalType type) {
         if (type == AnimalType.CAT) {
-            return new Cat(age, weight, name, color);
+            return new Cat(age, weight, name, color, type);
         }
         if (type == AnimalType.DOG) {
-            return new Dog(age, weight, name, color);
+            return new Dog(age, weight, name, color, type);
         }
         if (type == AnimalType.DUCK) {
-            return new Duck(age, weight, name, color);
+            return new Duck(age, weight, name, color, type);
         }
         return null;
     }

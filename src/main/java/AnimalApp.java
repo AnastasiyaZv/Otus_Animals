@@ -2,27 +2,28 @@ import animals.AbsAnimal;
 import data.AnimalType;
 import data.Color;
 import data.Command;
+import database.PostgresqlConnector;
 import factory.AnimalFactory;
-import input.*;
+import input.MessageData;
 import input.validators.*;
 import tables.AnimalTable;
 import tools.PrintLists;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class AnimalApp {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         NameInput nameInput = new NameInput();
         ColorInput colorInput = new ColorInput();
         List<AbsAnimal> animals = new ArrayList<>();
+        AnimalTable animalTable = new AnimalTable();
 
         do {
-            //запрашиваем команду
             Command currentCommand = new CommandInput().getCommand();
 
             if (currentCommand == Command.EXIT) {
@@ -31,6 +32,7 @@ public class AnimalApp {
 
             if (currentCommand == Command.LIST) {
                 new PrintLists<AbsAnimal>().printList(animals);
+                new PrintLists<>().printDataFromDB(animalTable.listDataFromTable("", "id", "name", "type", "color", "age", "weight"));
                 continue;
             }
 
@@ -60,9 +62,9 @@ public class AnimalApp {
 
             AbsAnimal animal = new AnimalFactory(age, weight, name, color).create(animalType);
             animals.add(animal);
+            animalTable.addAnimal(animal);
             animal.say();
 
         } while (true);
-        //TODO PostgresqlConnector().close - добавить
     }
 }
