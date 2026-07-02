@@ -1,5 +1,6 @@
 package tools;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class PrintLists<T>  {
 
     public void printDataFromDB(List<Map<String, String>> list) {
         if (list.isEmpty()) {
-            System.out.println("Список пуст");
+            System.out.println("Выборка из таблицы пустая");
         }
 
         for (Map<String, String> row : list) {

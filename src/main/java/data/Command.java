@@ -6,6 +6,7 @@ import java.util.List;
 public enum Command {
     ADD,
     LIST,
+    UPDATE,
     EXIT;
 
     //список команд в строком виде для удобства поиска

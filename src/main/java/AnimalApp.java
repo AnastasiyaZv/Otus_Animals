@@ -2,7 +2,6 @@ import animals.AbsAnimal;
 import data.AnimalType;
 import data.Color;
 import data.Command;
-import database.PostgresqlConnector;
 import factory.AnimalFactory;
 import input.MessageData;
 import input.validators.*;
@@ -16,12 +15,13 @@ import java.util.List;
 
 public class AnimalApp {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
         NameInput nameInput = new NameInput();
         ColorInput colorInput = new ColorInput();
         List<AbsAnimal> animals = new ArrayList<>();
-        AnimalTable animalTable = new AnimalTable();
+        PredicatesWhereInput predicatesWhereInput = new PredicatesWhereInput();
+        PredicatesSetInput predicatesSetInput = new PredicatesSetInput();
 
         do {
             Command currentCommand = new CommandInput().getCommand();
@@ -32,14 +32,28 @@ public class AnimalApp {
 
             if (currentCommand == Command.LIST) {
                 new PrintLists<AbsAnimal>().printList(animals);
-                new PrintLists<>().printDataFromDB(animalTable.listDataFromTable("", "id", "name", "type", "color", "age", "weight"));
+                String predicates = predicatesWhereInput.getPredicatesWhere();
+                try {
+                    new PrintLists<>().printDataFromDB(new AnimalTable().listDataFromTable(predicates, "id", "name", "type", "color", "age", "weight"));
+                } catch (SQLException e) {
+                    System.out.println("Указано некорректное условие.");
+                }
                 continue;
             }
 
-            //запрашиваем тип животного
+            if (currentCommand == Command.UPDATE){
+                String predicatesWhere = predicatesWhereInput.getPredicatesWhere();
+                String predicatesSet = predicatesSetInput.getPredicatesSet();
+                try{
+                    new AnimalTable().updateTable(predicatesWhere, predicatesSet);
+                } catch (SQLException e) {
+                    System.out.println("Указано некорректное условие");
+                }
+                continue;
+            }
+
             AnimalType animalType = new AnimalTypeInput().getAnimalType();
 
-            //запрашиваем параметры животного
             String name = nameInput.getName();
 
             MessageData ageMessageData = new MessageData(
@@ -62,9 +76,12 @@ public class AnimalApp {
 
             AbsAnimal animal = new AnimalFactory(age, weight, name, color).create(animalType);
             animals.add(animal);
-            animalTable.addAnimal(animal);
             animal.say();
-
+            try {
+                new AnimalTable().addAnimal(animal);
+            } catch (SQLException e) {
+                System.out.println(e.getStackTrace());
+            }
         } while (true);
     }
 }

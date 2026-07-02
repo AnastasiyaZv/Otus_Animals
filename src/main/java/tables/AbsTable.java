@@ -77,4 +77,24 @@ public abstract class AbsTable {
             System.out.println("Запись в БД не создана");
         }
     }
+
+    public void updateTable(String predicatesWhere, String predicatesSet) throws SQLException{
+        String sqlRequest = String.format("UPDATE %s SET %s WHERE %s", tableName, predicatesSet, predicatesWhere);
+        System.out.println(sqlRequest);
+        this.dbConnector.execute(sqlRequest);
+
+        String predicates = predicatesSet + " and " + predicatesWhere;
+        List<Map<String,String>> result = listDataFromTable(predicates,"id");
+
+
+        //TODO как проверить, что запись обновлена
+        if (!result.isEmpty()){
+            System.out.println("Запись обновлена");
+            new PrintLists<>().printDataFromDB(result);
+        } else {
+            System.out.println("Запись не обновлена");
+        }
+
+
+    }
 }
