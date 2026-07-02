@@ -27,6 +27,9 @@ public abstract class AbsTable {
             System.out.println(ex.getSQLState());
         }
     }
+    public void closeConnector() throws SQLException {
+        dbConnector.close();
+    }
 
     public void createTable(String...columns) throws SQLException{
         String sqlRequest = String.format("CREATE TABLE IF NOT EXISTS %s (%s)", tableName,
@@ -46,7 +49,6 @@ public abstract class AbsTable {
         if (!predicates.isEmpty()){
             sqlRequest += String.format(" WHERE %s", predicates);
         }
-        System.out.println(sqlRequest);
 
         ResultSet resultSet = this.dbConnector.executeWithData(sqlRequest);
         List<Map<String,String>> result = new ArrayList<>();
@@ -64,7 +66,6 @@ public abstract class AbsTable {
     public void addAnimal(AbsAnimal animal) throws SQLException{
         String sqlRequest = String.format("INSERT INTO %s (name,age,weight,color, type) VALUES ('%s',%d,%d,'%s','%s')",
                 tableName, animal.getName(),animal.getAge(), animal.getWeight(), animal.getColor(), animal.getType());
-        System.out.println(sqlRequest);
         int affectRows = this.dbConnector.execute(sqlRequest);
 
         String predicates = String.format("name = '%s' and type='%s'", animal.getName(), animal.getType());
@@ -80,7 +81,7 @@ public abstract class AbsTable {
 
     public void updateTable(String predicatesWhere, String predicatesSet) throws SQLException{
         String sqlRequest = String.format("UPDATE %s SET %s WHERE %s", tableName, predicatesSet, predicatesWhere);
-        System.out.println(sqlRequest);
+
         int affectRows = this.dbConnector.execute(sqlRequest);
 
         if (affectRows == 0){

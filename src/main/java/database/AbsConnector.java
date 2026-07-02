@@ -33,7 +33,6 @@ public abstract class AbsConnector implements IDBConnector {
     }
 
     public int execute(String sqlRequest) throws SQLException {
-        //statement.execute(sqlRequest);
         return statement.executeUpdate(sqlRequest);
     }
 

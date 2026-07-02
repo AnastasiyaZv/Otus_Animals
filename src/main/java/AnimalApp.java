@@ -13,19 +13,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class AnimalApp {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         NameInput nameInput = new NameInput();
         ColorInput colorInput = new ColorInput();
         List<AbsAnimal> animals = new ArrayList<>();
+        AnimalTable animalTable = new AnimalTable();
 
         do {
             Command currentCommand = new CommandInput().getCommand();
 
             if (currentCommand == Command.EXIT) {
+                animalTable.closeConnector();
                 System.exit(0);
             }
 
@@ -37,14 +38,14 @@ public class AnimalApp {
                 PredicatesInput predicatesWhere = new PredicatesInput(messagePredicates);
                 String where = predicatesWhere.getPredicates();
                 try {
-                    new PrintLists<>().printDataFromDB(new AnimalTable().listDataFromTable(where, "id", "name", "type", "color", "age", "weight"));
+                    new PrintLists<>().printDataFromDB(animalTable.listDataFromTable(where, "id", "name", "type", "color", "age", "weight"));
                 } catch (SQLException e) {
-                    System.out.println("Указано некорректное условие.");
+                    System.out.println("Некорректно задано уcловие");
                 }
                 continue;
             }
 
-            if (currentCommand == Command.UPDATE){
+            if (currentCommand == Command.UPDATE) {
                 MessagePredicates messagePredicatesWhere = new MessagePredicates(
                         "Введите условие для выборки данных",
                         "Условие для выборки данных не может быть пустым"
@@ -59,11 +60,10 @@ public class AnimalApp {
                 );
                 PredicatesInput predicatesSet = new PredicatesInput(messagePredicatesSet);
                 String set = predicatesSet.getPredicates();
-
-                try{
-                    new AnimalTable().updateTable(where, set);
+                try {
+                    animalTable.updateTable(where, set);
                 } catch (SQLException e) {
-                    System.out.println("Указано некорректное условие");
+                    System.out.println("Некорректно задано уcловие");
                 }
                 continue;
             }
@@ -94,10 +94,11 @@ public class AnimalApp {
             animals.add(animal);
             animal.say();
             try {
-                new AnimalTable().addAnimal(animal);
+                animalTable.addAnimal(animal);
             } catch (SQLException e) {
-                System.out.println(e.getStackTrace());
+                System.out.println("Запись в БД не добавлена. Что-то пошло не так.");
             }
         } while (true);
+
     }
 }
