@@ -32,8 +32,9 @@ public abstract class AbsConnector implements IDBConnector {
         return connection.createStatement();
     }
 
-    public void execute(String sqlRequest) throws SQLException {
-        statement.execute(sqlRequest);
+    public int execute(String sqlRequest) throws SQLException {
+        //statement.execute(sqlRequest);
+        return statement.executeUpdate(sqlRequest);
     }
 
     public ResultSet executeWithData(String sqlRequest) throws SQLException {

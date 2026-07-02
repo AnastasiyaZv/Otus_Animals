@@ -1,9 +1,7 @@
 package input.validators;
 
-import input.MessageData;
+import input.messageForUser.MessageData;
 import utils.NumberUtils;
-
-import java.util.Scanner;
 
 public class NumberInput extends AbsInput {
 

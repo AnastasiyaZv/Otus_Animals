@@ -1,8 +1,4 @@
-package input;
-
-/**
- * класс хранящий сообщения для пользователя
- */
+package input.messageForUser;
 
 public class MessageData {
     private final String ifoMessage;

@@ -7,7 +7,7 @@ public interface IDBConnector {
 
     void close() throws SQLException;
 
-    void execute(String sqlRequest) throws SQLException;
+    int execute(String sqlRequest) throws SQLException;
 
     ResultSet executeWithData(String sqlRequest) throws SQLException;
 

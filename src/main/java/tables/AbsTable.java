@@ -65,36 +65,28 @@ public abstract class AbsTable {
         String sqlRequest = String.format("INSERT INTO %s (name,age,weight,color, type) VALUES ('%s',%d,%d,'%s','%s')",
                 tableName, animal.getName(),animal.getAge(), animal.getWeight(), animal.getColor(), animal.getType());
         System.out.println(sqlRequest);
-        this.dbConnector.execute(sqlRequest);
+        int affectRows = this.dbConnector.execute(sqlRequest);
 
         String predicates = String.format("name = '%s' and type='%s'", animal.getName(), animal.getType());
         List<Map<String,String>> result = listDataFromTable(predicates,"id");
 
-        if (!result.isEmpty()){
-            System.out.println("Запись в БД создана");
-            new PrintLists<>().printDataFromDB(result);
+        if (affectRows == 0){
+            System.out.println("Запись не создана");
         } else {
-            System.out.println("Запись в БД не создана");
+            System.out.print("Запись создана ");
+            new PrintLists<>().printDataFromDB(result);
         }
     }
 
     public void updateTable(String predicatesWhere, String predicatesSet) throws SQLException{
         String sqlRequest = String.format("UPDATE %s SET %s WHERE %s", tableName, predicatesSet, predicatesWhere);
         System.out.println(sqlRequest);
-        this.dbConnector.execute(sqlRequest);
+        int affectRows = this.dbConnector.execute(sqlRequest);
 
-        String predicates = predicatesSet + " and " + predicatesWhere;
-        List<Map<String,String>> result = listDataFromTable(predicates,"id");
-
-
-        //TODO как проверить, что запись обновлена
-        if (!result.isEmpty()){
-            System.out.println("Запись обновлена");
-            new PrintLists<>().printDataFromDB(result);
-        } else {
+        if (affectRows == 0){
             System.out.println("Запись не обновлена");
+        } else {
+            System.out.println("Обновлено количество строк " + affectRows);
         }
-
-
     }
 }

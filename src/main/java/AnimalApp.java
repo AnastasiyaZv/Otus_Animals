@@ -3,7 +3,8 @@ import data.AnimalType;
 import data.Color;
 import data.Command;
 import factory.AnimalFactory;
-import input.MessageData;
+import input.messageForUser.MessageData;
+import input.messageForUser.MessagePredicates;
 import input.validators.*;
 import tables.AnimalTable;
 import tools.PrintLists;
@@ -20,8 +21,6 @@ public class AnimalApp {
         NameInput nameInput = new NameInput();
         ColorInput colorInput = new ColorInput();
         List<AbsAnimal> animals = new ArrayList<>();
-        PredicatesWhereInput predicatesWhereInput = new PredicatesWhereInput();
-        PredicatesSetInput predicatesSetInput = new PredicatesSetInput();
 
         do {
             Command currentCommand = new CommandInput().getCommand();
@@ -32,9 +31,13 @@ public class AnimalApp {
 
             if (currentCommand == Command.LIST) {
                 new PrintLists<AbsAnimal>().printList(animals);
-                String predicates = predicatesWhereInput.getPredicatesWhere();
+                MessagePredicates messagePredicates = new MessagePredicates(
+                        "Введите условие для выборки данных, например type='CAT': ",
+                        "Условие для выборки данных не может быть пустым");
+                PredicatesInput predicatesWhere = new PredicatesInput(messagePredicates);
+                String where = predicatesWhere.getPredicates();
                 try {
-                    new PrintLists<>().printDataFromDB(new AnimalTable().listDataFromTable(predicates, "id", "name", "type", "color", "age", "weight"));
+                    new PrintLists<>().printDataFromDB(new AnimalTable().listDataFromTable(where, "id", "name", "type", "color", "age", "weight"));
                 } catch (SQLException e) {
                     System.out.println("Указано некорректное условие.");
                 }
@@ -42,10 +45,23 @@ public class AnimalApp {
             }
 
             if (currentCommand == Command.UPDATE){
-                String predicatesWhere = predicatesWhereInput.getPredicatesWhere();
-                String predicatesSet = predicatesSetInput.getPredicatesSet();
+                MessagePredicates messagePredicatesWhere = new MessagePredicates(
+                        "Введите условие для выборки данных",
+                        "Условие для выборки данных не может быть пустым"
+                );
+
+                PredicatesInput predicatesWhere = new PredicatesInput(messagePredicatesWhere);
+                String where = predicatesWhere.getPredicates();
+
+                MessagePredicates messagePredicatesSet = new MessagePredicates(
+                        "Введите условие для обновления данных",
+                        "Условие для обновления данных не может быть пустым"
+                );
+                PredicatesInput predicatesSet = new PredicatesInput(messagePredicatesSet);
+                String set = predicatesSet.getPredicates();
+
                 try{
-                    new AnimalTable().updateTable(predicatesWhere, predicatesSet);
+                    new AnimalTable().updateTable(where, set);
                 } catch (SQLException e) {
                     System.out.println("Указано некорректное условие");
                 }
